@@ -21,7 +21,7 @@ typedef struct MessageClient{
 typedef struct Object{
   int id;
   char *user;
-}
+}Object;
 
 typedef struct MessageServer{
   int method;

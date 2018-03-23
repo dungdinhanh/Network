@@ -49,7 +49,7 @@ MessageServer newMessageServer()
     messageServer.error[i] = D_INT;
   }
 
-  messageServer.object = (Object *)malloc(sizeof(Object) * MAX_OBJECT)
+  messageServer.object = (Object *)malloc(sizeof(Object) * MAX_OBJECT);
   for(i = 0; i< MAX_OBJECT; i++)
   {
     messageServer.object[i] = initObject();
@@ -130,13 +130,13 @@ int getReceiverClient(MessageClient messageClient){
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //Getter and Setter of server
-void getMethodServer(MessageServer messsageServer)
+int getMethodServer(MessageServer messageServer)
 {
   return messageServer.method;
 }
 
 
-int setMethodServer(MessageServer messageServer, int method)
+void setMethodServer(MessageServer messageServer, int method)
 {
   messageServer.method = method;
 }
@@ -181,7 +181,7 @@ int getGroupServer(MessageServer messageServer)
 void addObject(MessageServer message, Object object)
 {
   message.currentObject += 1;
-  message.object[currentObject - 1] = object;
+  message.object[message.currentObject - 1] = object;
 }
 
 Object getObject(MessageServer message, int index)
@@ -195,7 +195,7 @@ Object getObject(MessageServer message, int index)
 //---------------------------------------------------------------
 //---------------------------------------------------------------
 //Object init
-void setID(Object object, id)
+void setID(Object object, int id)
 {
   object.id = id;
 }
