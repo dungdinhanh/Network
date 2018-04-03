@@ -1,0 +1,139 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usetheme[progressbar=frametitle]{metropolis}
+\setbeamertemplate{frame numbering}[fraction]
+\useoutertheme{metropolis}
+\useinnertheme{metropolis}
+\usefonttheme{metropolis}
+\usecolortheme{spruce}
+\setbeamercolor{background canvas}{bg=white}
+
+\definecolor{mygreen}{rgb}{.125, .5,.25}
+\usecolortheme[named=mygreen]{structure}
+
+\title[Short Title]{Network Programming}
+\subtitle{Design and Analysis}
+\author{Dinh Anh Dung - 20140774 \\ An Nguyen Quynh Anh - 20140028 \\ Do Nhat Quang }
+\institute{\large \textbf{Hanoi University of Science and Technology}}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Application Introduction}
+Our Application is about chatting program:
+
+\begin{itemize}
+\item Application require login and logout
+\item Allow users to chat with each other
+\item Allow users to create a group
+\item Allow user to chat in a group
+\item Allow user to send pictures to others
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{itemize}
+\item Transport protocol TCP
+\item Server - Client Architecture
+\end{itemize}
+\column{0.5\textwidth}
+\begin{figure}
+\includegraphics[scale=0.15]{1200px-Server-based-network.svg.png}
+\caption{Model}
+\end{figure}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Design}
+\begin{enumerate}
+\item \textbf{Message Format}
+\item \textbf{Modules}
+\item \textbf{Protocol}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}{Message Format}
+\begin{enumerate}
+\item Using JSON Format
+\item Client message
+\item Server Message
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Client Message}
+\begin{enumerate}
+\item Method 
+\item User name
+\item Password
+\item Sender
+\item Receiver
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Server Message}
+\begin{enumerate}
+\item Method
+\item Code
+\item Sender name
+\item Receiver ID
+\item Error list
+\item Object list
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}{Modules}
+\begin{enumerate}
+\item \textbf{Library}
+\item \textbf{Log In}
+\item \textbf{Register}
+\item \textbf{Send Message}
+\item \textbf{Room}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Module Design}
+\begin{figure}
+\includegraphics[scale=0.2]{usecase.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Log In}
+\begin{figure}
+\includegraphics[scale=0.2]{Login.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Register}
+\begin{figure}
+\includegraphics[scale=0.2]{Register.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Send Messages To A Group}
+\begin{figure}
+\includegraphics[scale=0.3]{SendMessageToGroup.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Send Message To A Person}
+\includegraphics[scale=0.3]{SendMessageToOther.png}
+\end{frame}
+
+
+\end{document}

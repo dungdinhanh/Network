@@ -25,12 +25,13 @@ char *getErrorMessage(ErrorCode errorCode){
 		printf("Not an error\n");
 		return "\0";
 	}
-	for (int i = 0; i < ERROR_NUMBER; i++)
+	for (i = 0; i < ERROR_NUMBER; i++)
 	{
 		/* code */
 		if(errorCode == i)
 			return error[i].message;
 	}
+	return NULL;
 }
 
 // int main()

@@ -27,7 +27,6 @@ Code code[MAX_CODE] = {
 
 
 char *getCodeMessage(CodeNum codeNum){
-	int i;
 	if(codeNum >= MAX_CODE){
 		printf("Not a server message");
 		return "\0";

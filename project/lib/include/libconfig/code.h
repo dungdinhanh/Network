@@ -18,4 +18,6 @@ typedef enum
 	FAIL_SEND_MESSAGE
 }CodeNum;
 
+char *getCodeMessage(CodeNum codeNum);
+
 #endif
