@@ -6,7 +6,7 @@
 #include <my_global.h>
 
 
-MysqlConnector MysqlConnector(){
+MysqlConnector newMysqlConnector(){
 	MysqlConnector mysqlConnector;
 	mysqlConnector.hostName = (char *)malloc(sizeof(char) * MAX_NAME);
 	mysqlConnector.userName = (char *)malloc(sizeof(char) * MAX_NAME);
@@ -70,3 +70,45 @@ int equal(MysqlConnector mysqlConnector, MysqlConnector mysqlConnector1){
 }
 
 
+MYSQL *connectDatabase(MysqlConnector mysqlConnector)
+{
+	MYSQL *conn = mysql_init(NULL);
+	if(!mysql_real_connect(conn, getHostName(mysqlConnector), getUserName(mysqlConnector), 
+		getPassword(mysqlConnector), getDatabase(mysqlConnector),0, NULL, 0))
+	{
+		printf("%s\n", mysql_error(conn));
+		exit(1);
+	}
+	return conn;
+}
+
+
+MYSQL_RES *getResult(MYSQL *conn, char *query)
+{
+	MYSQL_RES * res;
+	if(mysql_query(conn, query))
+	{
+		printf("%s\n", mysql_error(conn));
+		exit(1);
+	}
+	res = mysql_use_result(conn);
+	return res;
+}
+
+
+
+
+
+
+// int main(){
+
+// 	MysqlConnector mysqlConnector = newMysqlConnector();
+// 	setHostName(mysqlConnector, "localhost");
+// 	setUserName(mysqlConnector, "group8");
+// 	setDatabase(mysqlConnector, "ChatProgram");
+// 	setPassword(mysqlConnector, "123");
+
+// 	MYSQL *conn = connectDatabase(mysqlConnector);
+// 	MYSQL_RES *res = getResult(conn, "SELECT * FROM groups");
+// 	return 0;
+// }
