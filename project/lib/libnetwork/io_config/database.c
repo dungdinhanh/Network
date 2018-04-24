@@ -89,7 +89,7 @@ MYSQL_RES *getResult(MYSQL *conn, char *query)
 	if(mysql_query(conn, query))
 	{
 		printf("%s\n", mysql_error(conn));
-		exit(1);
+		return NULL;
 	}
 	res = mysql_use_result(conn);
 	return res;
