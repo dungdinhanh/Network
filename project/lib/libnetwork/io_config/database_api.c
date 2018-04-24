@@ -10,6 +10,7 @@ MysqlConnector mysqlConnect;
 MYSQL *databaseConnect = NULL;
 
 void startConnection(){
+	if(databaseConnect != NULL)return;
 	mysqlConnect = newMysqlConnector();
 	setHostName(mysqlConnect, SERVER);
 	setUserMy(mysqlConnect, USERNAME);
@@ -24,6 +25,12 @@ void closeConnection(){
 		return;
 	mysql_close(databaseConnect);
 	databaseConnect = NULL;
+}
+
+int checkConnection()
+{
+	if(databaseConnect == NULL)return 0;
+	else return 1;
 }
 
 
