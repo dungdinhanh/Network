@@ -20,11 +20,11 @@ void setHostName(MysqlConnector mysqlConnector,char *hostName){
 }
 
 
-void setUserName(MysqlConnector mysqlConnector, char *userName){
+void setUserMy(MysqlConnector mysqlConnector, char *userName){
 	strcpy(mysqlConnector.userName, userName);
 }
 
-void setPassword(MysqlConnector mysqlConnector, char *password){
+void setPassMy(MysqlConnector mysqlConnector, char *password){
 	strcpy(mysqlConnector.password, password);
 }
 
@@ -37,12 +37,12 @@ char *getHostName(MysqlConnector mysqlConnector){
 	return mysqlConnector.hostName;
 }
 
-char *getUserName(MysqlConnector mysqlConnector){
+char *getUserMy(MysqlConnector mysqlConnector){
 	return mysqlConnector.userName;
 }
 
 
-char *getPassword(MysqlConnector mysqlConnector){
+char *getPassMy(MysqlConnector mysqlConnector){
 	return mysqlConnector.password;
 }
 
@@ -73,8 +73,8 @@ int equal(MysqlConnector mysqlConnector, MysqlConnector mysqlConnector1){
 MYSQL *connectDatabase(MysqlConnector mysqlConnector)
 {
 	MYSQL *conn = mysql_init(NULL);
-	if(!mysql_real_connect(conn, getHostName(mysqlConnector), getUserName(mysqlConnector), 
-		getPassword(mysqlConnector), getDatabase(mysqlConnector),0, NULL, 0))
+	if(!mysql_real_connect(conn, getHostName(mysqlConnector), getUserMy(mysqlConnector), 
+		getPassMy(mysqlConnector), getDatabase(mysqlConnector),0, NULL, 0))
 	{
 		printf("%s\n", mysql_error(conn));
 		exit(1);

@@ -23,4 +23,19 @@ cd ..
 cd libstring/
 make clean
 make all
+cd ..
+cd libnetwork/
+cd ent_config
+make clean
+make all
+cd ../io_config
+make clean
+make all
+cd ../pro_config
+make clean
+make all
+cd ../socket_api
+make clean
+make all
 cd
+

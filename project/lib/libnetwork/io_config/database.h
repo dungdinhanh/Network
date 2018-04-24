@@ -20,17 +20,17 @@ MysqlConnector newMysqlConnector();
 void setHostName(MysqlConnector mysqlConnector,char *hostName);
 
 
-void setUserName(MysqlConnector mysqlConnector, char *userName);
+void setUserMy(MysqlConnector mysqlConnector, char *userName);
 
-void setPassword(MysqlConnector mysqlConnector, char *password);
+void setPassMy(MysqlConnector mysqlConnector, char *password);
 
 void setDatabase(MysqlConnector mysqlConnector, char *database);
 
 char *getHostName(MysqlConnector mysqlConnector);
 
-char *getUserName(MysqlConnector mysqlConnector);
+char *getUserMy(MysqlConnector mysqlConnector);
 
-char *getPassword(MysqlConnector mysqlConnector);
+char *getPassMy(MysqlConnector mysqlConnector);
 
 char *getDatabase(MysqlConnector mysqlConnector);
 
