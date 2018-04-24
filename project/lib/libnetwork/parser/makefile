@@ -8,17 +8,16 @@ SRCS = $(wildcard *.c)
 
 HEADER = $(wildcard *.h)
 
-HEADFOLDER = libio
+HEADFOLDER = libparse
 
 OBJS = $(SRCS:.c=.o)
 
-PROGRAM = libio.a
+PROGRAM = $(HEADFOLDER).a # test for this, if error just comeback
 
 LIBS = ../../implementation/
 
 INCLUDES = ../../include
 
-MYSQL = /usr/include/mysql
 
 all: $(PROGRAM)
 
@@ -29,7 +28,7 @@ $(PROGRAM): $(OBJS)
 		cp $(HEADER) $(INCLUDES)/$(HEADFOLDER)
 
 .c.o: $(SRCS)
-		$(CC) $(FLAGS) -I$(MYSQL) -I$(INCLUDES) $(SRCS) 
+		$(CC) $(FLAGS) -I$(INCLUDES) $(SRCS)
 
 clean:
 		rm -rf core $(LIBS)$(PROGRAM) $(OBJS) $(INCLUDES)/$(HEADFOLDER) *~

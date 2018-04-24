@@ -58,7 +58,7 @@ User getUser(char *userName, char *password)
 	if(row != NULL)
 	{		
 		setUserName(user, row[1]);
-		setPassWord(user, row[2]);
+		setPassword(user, row[2]);
 		setUserID(user, atoi(row[0]));
 	}
 	return user;

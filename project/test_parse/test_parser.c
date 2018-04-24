@@ -1,4 +1,4 @@
-#include "parser.c"
+#include <libparse/parser.h>
 
 int main() {
     char * str = "{ \"method\": 1, \"message\": \"Hello\", \"user\": \"anhanq\", \"password\": \"anhanqq\", \"sender\": 1, \"group\": 1, \"receiver\": 2, }";

@@ -2,8 +2,7 @@ CC = gcc
 
 FLAGS = -c -g -Wall
 
-LFLAGS = -lstring -labs -lgraph -lllist -lfdr -lbt -lio -lsocket
-
+LFLAGS = -lstring -labs -lgraph -lllist -lfdr -lbt -lio -lsocket -lconfig -lent
 SRCS = $(wildcard *.c)
 
 OBJS = $(SRCS:.c=.o)
