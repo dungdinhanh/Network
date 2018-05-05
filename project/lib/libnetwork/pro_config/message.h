@@ -27,7 +27,10 @@ typedef struct MessageServer{
   int method;
   char *message;
   int error[MAX_ERROR];
+  int code;
   int sender;
+  int receiver;
+  char *senderName;
   int group;
   Object *object;
   //below will not be wrapped in json
@@ -81,6 +84,22 @@ int getMethodServer(MessageServer messageServer);
 void setMessageServer(MessageServer messageServer, char *message);
 
 char *getMessageServer(MessageServer messageServer);
+
+void setCodeServer(MessageServer messageServer, int code);
+
+int getCodeServer(MessageServer messageServer);
+
+void setSenderNameServer(MessageServer messageServer, char *senderName);
+
+char *getSenderNameServer(MessageServer messageServer);
+
+void setSenderServer(MessageServer messageServer, int sender);
+
+int getSenderServer(MessageServer messageServer);
+
+void setReceiverServer(MessageServer messageServer, int receiver);
+
+int getReceiverServer(MessageServer messageServer);
 
 void addError(MessageServer messageServer, int error);
 

@@ -41,7 +41,13 @@ MessageServer newMessageServer()
   messageServer.message = (char *)malloc(sizeof(char) * MAX_LINE);
   strcpy(messageServer.message, D_STRING);
 
+  messageServer.senderName = (char *)malloc(sizeof(char) * MAX_LINE);
+  strcpy(messageServer.senderName, D_STRING);
+
   messageServer.sender = D_INT;
+  messageServer.code = D_INT;
+  messageServer.sender = D_INT;
+  messageServer.receiver = D_INT;
   int i;
 
   for(i = 0; i< MAX_ERROR; i++)
@@ -151,8 +157,50 @@ void setMessageServer(MessageServer messageServer, char *message)
 {
   strcpy (messageServer.message, message);
 }
+//-------------------------------------------
+void setCodeServer(MessageServer messageServer, int code)
+{
+  messageServer.code = code;
+}
+
+int getCodeServer(MessageServer messageServer)
+{
+  return messageServer.code;
+}
 
 //------------------------
+
+void setSenderNameServer(MessageServer messageServer, char *senderName)
+{
+  strcpy(messageServer.senderName, senderName);
+}
+
+char *getSenderNameServer(MessageServer messageServer)
+{
+  return messageServer.senderName;
+}
+//--------------------------
+void setSenderServer(MessageServer messageServer, int sender)
+{
+  messageServer.sender = sender;
+}
+
+int getSenderServer(MessageServer messageServer)
+{
+  return messageServer.sender;
+}
+//-----------------------------
+void setReceiverServer(MessageServer messageServer, int receiver)
+{
+  messageServer.receiver = receiver;
+}
+
+int getReceiverServer(MessageServer messageServer)
+{
+  return messageServer.receiver;
+}
+
+//-------------------------
 void addError(MessageServer messageServer, int error)
 {
   messageServer.currentError += 1;
