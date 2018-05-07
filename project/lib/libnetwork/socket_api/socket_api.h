@@ -1,11 +1,15 @@
 
 
-#define MAX_LINE 4096 //max text line
+#ifndef _SOCKET_API_
+#define _SOCKET_API_
+#define MAX_LINE 8000 //max text line/ 
 #define SERVER_PORT 3000 // server port
 #define LISTENQ 100 // maximum number of client connection
 //for server
 struct sockaddr_in serverConfigure();
+
 int initListen(struct sockaddr_in server_address);
+
 int getListen();
 
 
@@ -20,8 +24,10 @@ int connectAction(int socket_id, struct sockaddr_in server);
 
 int getConnect(char *server_ip); // return socket_id for the connection -1 if it can not connect , return socket_id as id for this connection
 
+int getAccept(int listenID);
 //for both
 void sendMessage(int socket_id, char *message);
 
-
 char * receiveMessage(int socket_id);
+
+#endif

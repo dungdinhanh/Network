@@ -37,5 +37,13 @@ make all
 cd ../socket_api
 make clean
 make all
-cd
+cd ../client_lib
+make clean
+make all
+cd ../server_lib
+make clean
+make all
+cd ../parser
+make clean
+make all
 
