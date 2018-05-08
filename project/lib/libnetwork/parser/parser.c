@@ -1,8 +1,7 @@
-//#include <libconfig/message.h>
+#include <libconfig/message.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <regex.h>
 #include "frozen.h"
 #include "parser.h"
 #define MAX_ARRAY 100
@@ -69,7 +68,6 @@ MessageServer serverJsonToStruct(char * json) {
     }
     return msg;
 }
-
 
 char * serverStructToJson(MessageServer msg) {
     char * str;

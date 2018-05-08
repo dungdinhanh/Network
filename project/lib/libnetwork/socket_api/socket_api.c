@@ -69,6 +69,15 @@ int getConnect(char *server_ip) // return socket_id for the connection
 }
 
 
+int getAccept(int listenID)
+{
+	struct sockaddr_in cliaddr;
+	socklen_t clilen;
+	clilen = sizeof(cliaddr);
+	int connFD = accept(listenID, (struct sockaddr *) &cliaddr, &clilen);
+	return connFD;
+}
+
 
 //for both
 void sendMessage(int socket_id, char *message) // take socket_id as client and accept_id as server
@@ -79,7 +88,7 @@ void sendMessage(int socket_id, char *message) // take socket_id as client and a
 
 char * receiveMessage(int socket_id)
 {
-	char *message = (char *)malloc(sizeof(char) * 100);
+	char *message = (char *)malloc(sizeof(char) * MAX_LINE);
 	if(recv(socket_id, message, MAX_LINE, 0) == 0)
 	{
 		perror("The server terminated prematurely");
