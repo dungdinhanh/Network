@@ -2,7 +2,7 @@
 #define __MESSAGE_H__
 
 
-#define MAX_LINE 4096
+#define MAX_LINE 8000
 #define MAX_ERROR 20
 #define MAX_OBJECT 2000
 #define D_INT -1

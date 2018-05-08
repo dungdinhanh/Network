@@ -1,3 +1,8 @@
+#include <libconfig/message.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "frozen.h"
 #include "parser.h"
 
 MessageClient clientJsonToStruct(char * json) {
@@ -35,9 +40,10 @@ char * clientStructToJson(MessageClient msg) {
     // please free the memory after using :>
 
     struct json_out json = JSON_OUT_BUF(str, 200);
-    printf("Method: %d\n", msg.method);
-    json_printf(&json, "{method: %d, sender: %d, group: %d, receiver: %d, message: %Q, user: %Q, password: %Q}", msg.method, msg.sender, msg.group, msg.receiver, msg.message, msg.user, msg.password);
-    //printf("%s\n", str);
+  //  printf("Method: %d\n", msg.method);
+    json_printf(&json, "{method: %d, sender: %d, group: %d, receiver: %d, message: %Q, user: %Q, password: %Q}"
+    , msg.method, msg.sender, msg.group, msg.receiver, msg.message, msg.user, msg.password);
+   // printf("%s\n", str);
     return str;
 }
 
@@ -45,6 +51,7 @@ char * serverStructToJson(MessageServer msg) {
     char * str;
     str = (char *) malloc(200 * sizeof(char));
     struct json_out json = JSON_OUT_BUF(str, 200);
+    return str;
 }
 
-json_printf(&json, "{method: %d, message: %Q, error: %M, sender: %d, group: %d}", msg.method, msg.message, msg.error, msg.sender, msg.group);
+// json_printf(&json, "{method: %d, message: %Q, error: %M, sender: %d, group: %d}", msg.method, msg.message, msg.error, msg.sender, msg.group);

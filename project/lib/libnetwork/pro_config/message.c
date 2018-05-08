@@ -70,6 +70,8 @@ MessageServer newMessageServer()
 // Getter Setter of Client
 void setMethodClient(MessageClient messageClient, int method){
   messageClient.method = method;
+  // printf("method pass : %d", method);
+  // printf("method out: %d\n", messageClient.method);
 }
 
 int getMethodClient(MessageClient messageClient){
@@ -243,23 +245,23 @@ Object getObject(MessageServer message, int index)
 //---------------------------------------------------------------
 //---------------------------------------------------------------
 //Object init
-void setID(Object object, int id)
+void setIDObject(Object object, int id)
 {
   object.id = id;
 }
 
-int getID(Object object)
+int getIDObject(Object object)
 {
   return object.id;
 }
 
 //-------------------------------------
-void setUser(Object object, char *user)
+void setUserObject(Object object, char *user)
 {
   strcpy(object.user, user);
 }
 
-char *getUser(Object object)
+char *getUserObject(Object object)
 {
   return object.user;
 }

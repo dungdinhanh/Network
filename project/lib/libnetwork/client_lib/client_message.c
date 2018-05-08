@@ -8,7 +8,7 @@
 MessageClient setLogIn(char *userName, char *password)
 {
 	MessageClient messageClient = newMessageClient();
-	setMethodClient(messageClient, LOG_IN);
+	messageClient.method = LOG_IN;
 	setUserClient(messageClient, userName);
 	setPasswordClient(messageClient, password);
 	return messageClient;
@@ -18,7 +18,7 @@ MessageClient setLogIn(char *userName, char *password)
 MessageClient setLogOut(char *userName)
 {
 	MessageClient messageClient = newMessageClient();
-	setMethodClient(messageClient, LOG_OUT);
+	messageClient.method = LOG_OUT;
 	return messageClient;
 }
 
@@ -26,7 +26,7 @@ MessageClient setLogOut(char *userName)
 MessageClient setRegister(char *userName, char *password)
 {
 	MessageClient messageClient = newMessageClient();
-	setMethodClient(messageClient, REGISTER);
+	messageClient.method = REGISTER;
 	setUserClient(messageClient, userName);
 	setPasswordClient(messageClient, password);
 	return messageClient;
@@ -36,10 +36,10 @@ MessageClient setRegister(char *userName, char *password)
 MessageClient setSendMessage(char *message, int senderID, int receiverID)
 {
 	MessageClient messageClient = newMessageClient();
-	setMethodClient(messageClient, SEND_MESSAGE);
+	messageClient.method = SEND_MESSAGE;
 	setMessageClient(messageClient, message);
-	setSenderClient(messageClient, senderID);
-	setReceiverClient(messageClient, receiverID);
+	messageClient.sender = senderID;
+	messageClient.receiver = receiverID;
 	return messageClient;
 }
 
@@ -48,8 +48,8 @@ MessageClient setSendMessage(char *message, int senderID, int receiverID)
 MessageClient setCreateGroup(char *groupName, int senderID)
 {
 	MessageClient messageClient = newMessageClient();
-	setMethodClient(messageClient, CREATE_GROUP);
-	setSenderClient(messageClient, senderID);
+	messageClient.method = CREATE_GROUP;
+	messageClient.sender = senderID;
 	return messageClient;
 }
 
@@ -57,8 +57,8 @@ MessageClient setCreateGroup(char *groupName, int senderID)
 MessageClient setAddPersonToGroup(int senderID, int groupID)
 {
 	MessageClient messageClient = newMessageClient();
-	setMethodClient(messageClient, ADD_PERSON_GROUP);
-	setSenderClient(messageClient, senderID);
-	setGroupClient(messageClient, groupID);
+	messageClient.method = ADD_PERSON_GROUP;
+	messageClient.sender = senderID;
+	messageClient.group = groupID;
 	return messageClient;
 }

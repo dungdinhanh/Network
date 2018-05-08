@@ -5,35 +5,13 @@
 #define SUCCESS 0
 #define FAILS 1
 #define SEND_MESSAGE 2
-#define LIST 3
+#define LIST_OBJECT 3
 
 
 
-MessageServer setSuccessfulResponse(int code)
-{
-	MessageServer messageServer = newMessageServer();
-	setMethodServer(messageServer, SUCCESS);
-	setCodeServer(messageServer, code);
-	return messageServer;
-}
+MessageServer setSuccessfulResponse(int code);
 
-MessageServer setFailResponse(int code)
-{
-	MessageServer messageServer = newMessageServer();
-	setCodeServer(messageServer, code);
-	setMethodServer(messageServer, FAILS);
-	return messageServer;
-}
+MessageServer setFailResponse(int code);
 
-MessageServer setSendMessageToClient(char *message, char*senderName, int sender_id, int receiver_id, int group_id)
-{
-	MessageServer messageServer = newMessageServer();
-	setMethodServer(messageServer, SEND_MESSAGE);
-	setMessageServer(messageServer, message);
-	setSenderNameServer(messageServer, senderName);
-	setSenderServer(messageServer, sender_id);
-	setReceiverServer(messageServer, receiver_id);
-	return messageServer;
-}
-
+MessageServer setSendMessageToClient(char *message, char*senderName, int sender_id, int receiver_id, int group_id);
 

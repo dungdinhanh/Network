@@ -5,6 +5,7 @@
             "includePath": [
                 "/usr/include",
                 "/usr/local/include",
+                "${workspaceFolder}/lib/include",
                 "${workspaceFolder}"
             ],
             "defines": [],
@@ -39,13 +40,17 @@
                 "/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed",
                 "/usr/include/x86_64-linux-gnu",
                 "/usr/include",
-                "${workspaceFolder}/lib/include"
+                "${workspaceFolder}/lib/include",
+                "${workspaceFolder}/program/include",
+                "/usr/include/mysql"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",
             "browse": {
                 "path": [
                     "${workspaceFolder}",
+                    "${workspaceFolder}/lib/include",
+                    "${workspaceFolder}/program/include",
                     "/usr/include/c++/5",
                     "/usr/include/x86_64-linux-gnu/c++/5",
                     "/usr/include/c++/5/backward",
