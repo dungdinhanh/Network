@@ -4,6 +4,7 @@
 #include <string.h>
 #include "frozen.h"
 #include "parser.h"
+#define MAX_ARRAY 100
 
 MessageClient clientJsonToStruct(char * json) {
     MessageClient msg = newMessageClient();
@@ -19,7 +20,6 @@ MessageClient clientJsonToStruct(char * json) {
     json_scanf(json, strlen(json), "{message: %Q}", &(msg.message));
     json_scanf(json, strlen(json), "{user: %Q}", &(msg.user));
     json_scanf(json, strlen(json), "{password: %Q}", &(msg.password));
-
     return msg;
 }
 
@@ -30,7 +30,6 @@ MessageServer serverJsonToStruct(char * json) {
     json_scanf(json, strlen(json), "{message: %Q}", &(msg.message));
     json_scanf(json, strlen(json), "{sender: %B}", &(msg.sender));
     json_scanf(json, strlen(json), "{group: %B}", &(msg.group));
-
     return msg;
 }
 
@@ -55,3 +54,37 @@ char * serverStructToJson(MessageServer msg) {
 }
 
 // json_printf(&json, "{method: %d, message: %Q, error: %M, sender: %d, group: %d}", msg.method, msg.message, msg.error, msg.sender, msg.group);
+
+
+int *parseIntegerArray(char *stringArray)
+{
+    int * result = (int *)malloc(sizeof(int) * MAX_ARRAY);
+    char *s = "[,\n ";
+    char *tempString = (char *)malloc(sizeof(char) * MAX_ARRAY);
+    strcpy(tempString, stringArray);
+    char * buffer = (char *)malloc(sizeof(char) * MAX_ARRAY);
+    int count = 0;
+    buffer = strtok(tempString, s);
+    while(1)
+    {
+        int element = atoi(buffer);
+        result[count] = element;
+        count++;
+        if((buffer= strtok(NULL, s)) == NULL)break;
+    }
+    result[count] = -1;
+    return result;
+}
+
+
+void printResult(int *a)
+{
+    if(a == NULL)return;
+    int i = 0;
+    while(a[i] != -1)
+    {
+        printf("%d - ", a[i]);
+        i++;
+    }
+    printf("\n");
+}
