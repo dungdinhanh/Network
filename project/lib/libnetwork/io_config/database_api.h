@@ -7,6 +7,7 @@
 #define DATABASE "ChatProgram"
 #include "database.h"
 #include <mysql.h>
+#include <libent/user.h>
 
 extern MysqlConnector mysqlConnect;
 extern MYSQL *databaseConnect;
@@ -15,11 +16,32 @@ void startConnection();
 
 void closeConnection();
 
+int checkConnection();
 
+//for users
+char *insertUserQuery(char *userName, char *password);
+
+int insertUser(char *userName, char *password);
+
+char *getUserQuery(char *userName, char *password);
+
+User getUser(char *userName, char *password);
+
+// for group
 char *insertGroupQuery(char *groupName, int creatorID);
 
 char *getGroupQuery(int groupID);
 
-void insertGroup(char *groupName, int creatorID);
+int insertGroup(char *groupName, int creatorID);
+
+
+// for adding users to group
+char *addUserToGroupQuery(int userID, int groupID);
+
+int addUserToGroup(int userID, int groupID);
+
+char *getUsersFromGroupQuery(int groupID);
+
+int *getUsersFromGroup(int groupID);
 
 #endif
