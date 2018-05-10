@@ -1,4 +1,4 @@
-#include <libconfig/message.h>
+//#include <libconfig/message.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -54,6 +54,8 @@ MessageServer serverJsonToStruct(char * json) {
         msg.error[i] = errorArray[i];
         i++;
     }
+    printf("Error array: ");
+    printErrorArray(errorArray);
     free(error);
     free(errorArray);
 
@@ -63,8 +65,8 @@ MessageServer serverJsonToStruct(char * json) {
     for (i = 0; json_scanf_array_elem(json, strlen(json), ".object", i, &t) > 0; i++) {
         msg.object[i].user = (char *) malloc(100 * sizeof(char)); 
         json_scanf(t.ptr, t.len, "{id: %d, user: %Q}", &msg.object[i].id, &msg.object[i].user);
-        printf("Id: %d\n", msg.object[i].id);
-        printf("User: %s\n", msg.object[i].user);
+        //printf("Id: %d\n", msg.object[i].id);
+        //printf("User: %s\n", msg.object[i].user);
     }
     return msg;
 }
@@ -72,7 +74,8 @@ MessageServer serverJsonToStruct(char * json) {
 char * serverStructToJson(MessageServer msg) {
     char * str;
     str = (char *) malloc(200 * sizeof(char));
-    struct json_out json = JSON_OUT_BUF(str, 200);
+    sprintf(str, "{ \"method\": %d, \"sender\": %d, \"group\": %d, \"message\": \"%s\", error: %s, object: %s }", msg.method, msg.sender, msg.group, msg.message, parserArrayToString(msg.error), parseObjectArrayToString(msg.object));
+    printf("Reverse: %s\n", str);
     return str;
 }
 
@@ -92,7 +95,7 @@ int *parseIntegerArray(char *stringArray) {
         if((buffer= strtok(NULL, s)) == NULL)
             break;
     }
-    result[count] = -1;
+    //result[count] = -1;
     return result;
 }
 
@@ -106,4 +109,50 @@ void printResult(int *a) {
         i++;
     }
     printf("\n");
+}
+
+char * parserArrayToString(int * array) {
+    int i = 0;
+    char * str = malloc(100 * sizeof(char));
+    strcpy(str, "[");
+    while (array[i] != -1) {
+    
+        char * x = malloc(5 * sizeof(char));
+        //if (array[i + 1] == -1)
+        //    sprintf(x, "%d", array[i]);
+        //else
+            sprintf(x, "%d, ", array[i]);
+        strcat(str, x);
+        free(x);
+        i++;
+    }
+    strcat(str, "-1]");
+    printf("Parse array to string: %s\n", str);
+    return str;
+}
+
+void printErrorArray(int * array) {
+    int i = 0;
+    do {
+        printf("Error[%d]: %d\n", i, array[i]);
+        i++;
+    } while (array[i]);
+}
+
+char * parseObjectArrayToString(Object * array) {
+    char * str = malloc(200 * sizeof(char));
+    int i = 0;
+    strcpy(str, "[");
+    while (array[i].id != -1) {
+        char * x = malloc(50 * sizeof(char));
+        printf("Id: %d, User: %s\n", array[i].id, array[i].user);
+        //if (array[i + 1].id != -1)
+            sprintf(x, "{ \"id\": %d, \"user\": \"%s\"}, ", array[i].id, array[i].user);
+        //else sprintf(x, "{ \"id\": %d, \"user\": \"%s\"} ", array[i].id, array[i].user);
+        strcat(str, x);
+        i++;
+    }
+    strcat(str, "{\"id\": -1, \"user\": \"\"}]");
+    printf("Parse object array to string: %s\n", str);
+    return str;
 }
