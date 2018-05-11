@@ -7,7 +7,10 @@
         "typeinfo": "c",
         "stdio.h": "c",
         "parser.h": "c",
-        "auth_server.h": "c"
+        "auth_server.h": "c",
+        "server_message.h": "c",
+        "client_message.h": "c"
     },
-    "C_Cpp.intelliSenseEngineFallback": "Disabled"
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "C_Cpp.errorSquiggles": "Disabled"
 }
