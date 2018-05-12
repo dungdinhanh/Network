@@ -62,3 +62,11 @@ MessageClient setAddPersonToGroup(int senderID, int groupID)
 	messageClient.group = groupID;
 	return messageClient;
 }
+
+MessageClient setListAllUsers(int sender, int groupID)//senderID and groupID can be -1 if there is no data for this field
+{
+	MessageClient messageClient = newMessageClient();
+	messageClient.method = 6;
+	messageClient.group = groupID;
+	return messageClient;
+}

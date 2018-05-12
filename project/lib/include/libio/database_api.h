@@ -27,6 +27,11 @@ char *getUserQuery(char *userName, char *password);
 
 User getUser(char *userName, char *password);
 
+char *getAllUserQuery();
+
+User *getAllUser();
+
+
 // for group
 char *insertGroupQuery(char *groupName, int creatorID);
 

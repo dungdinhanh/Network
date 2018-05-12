@@ -4,11 +4,12 @@
 #include <libconfig/message.h>
 #include "server_message.h"
 
-MessageServer setSuccessfulResponse(int code)
+MessageServer setSuccessfulResponse(int code, int senderID)
 {
 	MessageServer messageServer = newMessageServer();
 	messageServer.code = code;
 	messageServer.method = SUCCESS;
+	messageServer.sender = senderID;
 	return messageServer;
 }
 
@@ -28,6 +29,13 @@ MessageServer setSendMessageToClient(char *message, char*senderName, int sender_
 	messageServer.receiver = receiver_id;
 	setMessageServer(messageServer, message);
 	setSenderNameServer(messageServer, senderName);
+	return messageServer;
+}
+
+MessageServer setList()
+{
+	MessageServer messageServer = newMessageServer();
+	messageServer.method = LIST_OBJECT;
 	return messageServer;
 }
 

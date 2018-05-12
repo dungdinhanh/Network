@@ -23,9 +23,11 @@ int logInClient(int socketID)
     // printf("%s\n", message);
     sendMessage(socketID, message);
     char *response = (char *)malloc(sizeof(char) * MAX_LOGIN);
+    response = receiveMessage(socketID);
+    printf("%s\n", response);
     MessageServer messageServer = serverJsonToStruct(response);
-    if(messageServer.method == 1)return 0;
-    else return 1;    
+    if(messageServer.method == 1)return -1;
+    else return messageServer.sender;    
 }
 
 
@@ -42,6 +44,7 @@ int registerClient(int socketID)
     char *message = clientStructToJson(messageClient);
     sendMessage(socketID, message);
     char *response = (char *)malloc(sizeof(char) * MAX_CLIENT_MESS);
+    response = receiveMessage(socketID);
     MessageServer messageServer = serverJsonToStruct(response);
     if(messageServer.method == 1) return 0;
     else return 1;

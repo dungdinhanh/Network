@@ -28,4 +28,7 @@ MessageClient setCreateGroup(char *groupName, int senderID);
 
 MessageClient setAddPersonToGroup(int senderID, int groupID);
 
+MessageClient setListAllUsers(int senderID, int groupID);//senderID and groupID can be -1 if there is no data for this field
+
+
 #endif

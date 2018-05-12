@@ -32,8 +32,6 @@ int checkConnection()
 	if(databaseConnect == NULL)return 0;
 	else return 1;
 }
-
-
 //For users
 
 char *insertUserQuery(char *userName, char *password)
@@ -45,9 +43,17 @@ char *insertUserQuery(char *userName, char *password)
 
 int insertUser(char *userName, char *password)
 {
+	MYSQL_RES * res;
 	char *query = insertUserQuery(userName, password);
-	if(getResult(databaseConnect, query) != NULL)return 1;
-	else return 0;
+	if((res = getResult(databaseConnect, query)) != NULL){
+		mysql_free_result(res);
+		return 1;
+	}
+	else
+	{
+		mysql_free_result(res);
+		return 0;
+	}
 }
 
 char *getUserQuery(char *userName, char *password)
@@ -70,7 +76,38 @@ User getUser(char *userName, char *password)
 		user.id = atoi(row[0]);
 		//setUserID(user, atoi(row[0]));
 	}
+	mysql_free_result(res);
 	return user;
+}
+
+char *getAllUserQuery()
+{
+  char *query = (char *)malloc(sizeof(char) * MAX_LINE_QUERY);
+
+  sprintf(query, "SELECT * FROM users");
+  return query;
+}
+
+
+User *getAllUser()
+{
+  User *user = (User *)malloc(sizeof(User) * 100);
+  char *query = getAllUserQuery();
+  MYSQL_RES *res = getResult(databaseConnect, query);
+  //MYSQL_ROW *row = mysql_fetch_row(res);
+  MYSQL_ROW *row;
+  int count = 0;
+  while((row = mysql_fetch_row(res)) != NULL)
+  {
+	user[count] = newUser();
+	user[count].id = atoi(row[0]);
+	setUserName(user[count], row[1]);
+	setPassword(user[count], row[2]);
+	count++;
+  }
+  user[count] = newUser();
+  mysql_free_result(res);
+  return user;
 }
 
 
@@ -93,8 +130,17 @@ char *getGroupQuery(int groupID)
 int insertGroup(char *groupName, int creatorID)
 {
 	char *query = insertGroupQuery(groupName, creatorID);
-	if(getResult(databaseConnect, query) != NULL) return 1;
-	else return 0;
+	MYSQL_RES * res;
+	if((res = getResult(databaseConnect, query)) != NULL)
+	{
+		mysql_free_result(res);
+		return 1;
+	}
+	else
+	{
+		mysql_free_result(res);
+		return 0;
+	} 
 }
 
 
@@ -121,8 +167,16 @@ char *addUserToGroupQuery(int userID, int groupID)
 int addUserToGroup(int userID, int groupID)
 {
 	char *query = addUserToGroupQuery(userID, groupID);
-	if(getResult(databaseConnect, query) != NULL) return 1;
-	else return 0;
+	MYSQL_RES * res;
+	if((res = getResult(databaseConnect, query)) != NULL){
+		mysql_free_result(res);
+		return 1;
+	} 
+	else{
+
+		mysql_free_result(res);
+		return 0;
+	};
 }
 
 char *getUsersFromGroupQuery(int groupID)
@@ -147,7 +201,11 @@ int *getUsersFromGroup(int groupID)
 			userIDs[count] = atoi(row[0]);
 			count++;
 		}
+		mysql_free_result(res);
 		return userIDs;
 	}
-	else return NULL;
+	else{
+		mysql_free_result(res);
+		return NULL;
+	}
 }

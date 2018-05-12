@@ -10,7 +10,6 @@
 #define MAX_LOGIN 1000
 
 
-int logInServer(int listenID);
+int logInServer(int connID, char *userName, char *password);
 
-
-int registerServer(int connID);
+int registerServer(int connID, char *userName, char *password);

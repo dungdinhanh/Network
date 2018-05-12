@@ -9,9 +9,10 @@
 
 
 
-MessageServer setSuccessfulResponse(int code);
+MessageServer setSuccessfulResponse(int code, int senderId);
 
 MessageServer setFailResponse(int code);
 
 MessageServer setSendMessageToClient(char *message, char*senderName, int sender_id, int receiver_id, int group_id);
 
+MessageServer setList();

@@ -2,8 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <libauth/auth_client.h>
+#include <libparse/parser.h>
+#include <libclient/client_message.h>
+#include <libent/user.h>
 
+void mainProg(int socketID);
 
+void afterLogin(int socketID);
+
+void chatToPerson(int socketID);
 
 int main(int argc, char **argv)
 {
@@ -16,13 +23,14 @@ int main(int argc, char **argv)
     //test login 
     // int login = logInClient(socketID);
     // close(socketID);
-    int registerResult = registerClient(socketID);
+    // int registerResult = registerClient(socketID);
+    mainProg(socketID);
     return 0;
 }
 
 
 
-void mainProg(int socketID);
+void mainProg(int socketID)
 {
     int choice;
     do
@@ -36,9 +44,9 @@ void mainProg(int socketID);
         if(choice == 1)
         {
             int login = logInClient(socketID);
-            if(login == 1)
+            if(login != -1)
             {
-                
+                afterLogin(socketID);
             }
         }
 
@@ -47,7 +55,7 @@ void mainProg(int socketID);
            int registerResult = registerClient(socketID);
            if(registerResult == 1)
            {
-               
+               continue;
            }
         }
     }
@@ -83,5 +91,7 @@ void afterLogin(int socketID)
 
 void chatToPerson(int socketID)
 {
+    // MessageClient messageClient = setListAllUsers();    
     
+
 }
