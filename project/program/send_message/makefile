@@ -18,9 +18,9 @@ LIBS = -L../../lib/implementation
 
 INCLUDES = -I../../lib/include
 
-LIBS_PRO = -L../implementation/
+LIBS_PRO = ../implementation/
 
-INCLUDES_PRO = -I../include/
+INCLUDES_PRO = ../include/
 
 MYSQL = -I/usr/include/mysql
 
@@ -36,7 +36,7 @@ $(PROGRAM): $(OBJS)
 
 
 .c.o: $(SRCS)
-	$(CC) $(FLAGS) $(INCLUDES) $(MYSQL) $(SRCS)
+	$(CC) $(FLAGS) $(INCLUDES) $(MYSQL) $(SRCS) $(MFLAG)
 
 clean:
 	rm -rf core $(LIBS_PRO)$(PROGRAM) $(INCLUDES_PRO)$(HEADFOLDER) $(OBJS) *~

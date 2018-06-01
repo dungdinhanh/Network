@@ -10,8 +10,11 @@
         "auth_server.h": "c",
         "server_message.h": "c",
         "client_message.h": "c",
-        "user.h": "c"
+        "user.h": "c",
+        "message_client.h": "c",
+        "message_server.h": "c",
+        "database_api.h": "c"
     },
-    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
     "C_Cpp.errorSquiggles": "Disabled"
 }

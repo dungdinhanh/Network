@@ -92,7 +92,6 @@ char * receiveMessage(int socket_id)
 	if(recv(socket_id, message, MAX_LINE, 0) == 0)
 	{
 		perror("The server terminated prematurely");
-		exit(4);
 		return NULL;
 	}
 	return message;

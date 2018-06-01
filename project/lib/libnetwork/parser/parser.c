@@ -54,7 +54,7 @@ MessageServer serverJsonToStruct(char * json) {
         msg.error[i] = errorArray[i];
         i++;
     }
-    printf("Error array: ");
+    // printf("Error array: ");
     printErrorArray(errorArray);
     free(error);
     free(errorArray);

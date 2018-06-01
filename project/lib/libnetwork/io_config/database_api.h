@@ -27,9 +27,9 @@ char *getUserQuery(char *userName, char *password);
 
 User getUser(char *userName, char *password);
 
-char *getAllUserQuery();
+char *getAllUsersQuery();
 
-User *getAllUser();
+User *getAllUsers();
 
 
 // for group

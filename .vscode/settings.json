@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "auth_server.h": "c",
+        "database_api.h": "c"
+    }
+}

@@ -109,7 +109,7 @@ void setGroupServer(MessageServer messageServer, int group);
 
 int getGroupServer(MessageServer messageServer);
 
-void addObject(MessageServer messageServer, Object object);
+void addObject(MessageServer *messageServer, Object object);
 
 Object getObject(MessageServer messageServer, int index);
 

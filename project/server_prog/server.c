@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
 #include <libauth/auth_server.h>
 #include <libio/database_api.h>
+#include <libmessage/message_server.h>
 
 void mainServer(int listenID);
 
@@ -61,5 +63,12 @@ void *clientHandle(void *connectID)
             int registerResult = registerServer(connectionID, messageClient.user, messageClient.password);
             continue;
         }
+
+        if(messageClient.method == 6)
+        {
+            sendAllUsers(connectionID, messageClient.sender);
+        }
     }   
 }
+
+

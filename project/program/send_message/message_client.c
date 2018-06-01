@@ -23,9 +23,10 @@ User *allUsersInSystemClient(int socketID, int sender)
 {
     MessageClient messageClient = setListAllUsers(sender, -1);
     char *messageJSON = clientStructToJson(messageClient);
-    sendMessage(socket, messageJSON);
+    sendMessage(socketID, messageJSON);
     char *response = receiveMessage(socketID);
-    MessageServer messageServer = serverJSONToStruct(response);
+    printf("%s\n", response);
+    MessageServer messageServer = serverJsonToStruct(response);
     if(messageServer.method == 1)return NULL;
     User *user = (User *)malloc(sizeof(User) * MAX_USERS_IN);
     int count = 0;
@@ -34,7 +35,9 @@ User *allUsersInSystemClient(int socketID, int sender)
         if(messageServer.object[count].id == -1)break;
         user[count].id = messageServer.object[count].id;
         setUserName(user[count], messageServer.object[count].user);
-        strcpy(user[count].password, "");
+        printf("user name : %s\n", user[count].userName);
+        strcpy(user[count].password, "");   
+        count++;
     }
     return user;
 }  

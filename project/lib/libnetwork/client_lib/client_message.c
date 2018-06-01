@@ -36,7 +36,7 @@ MessageClient setRegister(char *userName, char *password)
 MessageClient setSendMessage(char *message, int senderID, int receiverID)
 {
 	MessageClient messageClient = newMessageClient();
-	messageClient.method = SEND_MESSAGE;
+	messageClient.method = SEND_MESSAGE_C;
 	setMessageClient(messageClient, message);
 	messageClient.sender = senderID;
 	messageClient.receiver = receiverID;
@@ -68,5 +68,6 @@ MessageClient setListAllUsers(int sender, int groupID)//senderID and groupID can
 	MessageClient messageClient = newMessageClient();
 	messageClient.method = 6;
 	messageClient.group = groupID;
+	messageClient.sender = sender;
 	return messageClient;
 }

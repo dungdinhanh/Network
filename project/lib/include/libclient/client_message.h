@@ -8,7 +8,7 @@
 #define LOG_IN 0
 #define LOG_OUT 1
 #define REGISTER 2
-#define SEND_MESSAGE 3
+#define SEND_MESSAGE_C 3
 #define CREATE_GROUP 4
 #define ADD_PERSON_GROUP 5
 #define LIST_USERS 6

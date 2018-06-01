@@ -80,7 +80,7 @@ User getUser(char *userName, char *password)
 	return user;
 }
 
-char *getAllUserQuery()
+char *getAllUsersQuery()
 {
   char *query = (char *)malloc(sizeof(char) * MAX_LINE_QUERY);
 
@@ -89,15 +89,15 @@ char *getAllUserQuery()
 }
 
 
-User *getAllUser()
+User *getAllUsers()
 {
   User *user = (User *)malloc(sizeof(User) * 100);
-  char *query = getAllUserQuery();
+  char *query = getAllUsersQuery();
   MYSQL_RES *res = getResult(databaseConnect, query);
   //MYSQL_ROW *row = mysql_fetch_row(res);
   MYSQL_ROW *row;
   int count = 0;
-  while((row = mysql_fetch_row(res)) != NULL)
+  while((row = mysql_fetch_row(res)))
   {
 	user[count] = newUser();
 	user[count].id = atoi(row[0]);

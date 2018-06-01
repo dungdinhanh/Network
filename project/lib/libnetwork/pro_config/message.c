@@ -228,10 +228,10 @@ int getGroupServer(MessageServer messageServer)
   return messageServer.group;
 }
 //--------------------------
-void addObject(MessageServer message, Object object)
+void addObject(MessageServer *message, Object object)
 {
-  message.currentObject += 1;
-  message.object[message.currentObject - 1] = object;
+  message->currentObject += 1;
+  message->object[message->currentObject - 1] = object;
 }
 
 Object getObject(MessageServer message, int index)

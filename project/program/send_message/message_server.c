@@ -15,7 +15,7 @@
 void sendAllUsers(int socketID, int sender)
 {
     MessageServer messageServer = setList();
-    User *user = getAllUser();
+    User *user = getAllUsers();
     int count = 0;
     while(1)
     {
@@ -23,9 +23,15 @@ void sendAllUsers(int socketID, int sender)
         Object object = initObject();
         strcpy(object.user, user[count].userName);
         object.id = user[count].id;
-        addObject(messageServer, object);
+        addObject(&messageServer, object);
+        count++;
     }
     char *message = serverStructToJson(messageServer);
     sendMessage(socketID, message);
 }
 
+// void getAllGroups(int socketID, int sender)
+// {
+//     MessageServer messageServer = setList();
+    
+// }
