@@ -8,6 +8,7 @@
 #include <libent/user.h>
 #include <libmessage/message_client.h>
 #define SIZE_NAME_C 100
+#define SIZE_MAX_MESSAGE_CLIENT 2000
 
 typedef struct Person{
     int id;
@@ -51,7 +52,8 @@ int main(int argc, char **argv)
     return 0;
 }
 
-void setup(){
+void setup()
+{
     partner.id = -1;
     partner.name = (char *)malloc(sizeof(char) * SIZE_NAME_C);
     
@@ -117,7 +119,7 @@ void afterLogin(int socketID)
         }
         if(choice == 2)
         {
-
+            chatToGroup(socketID);
         }
     }while(choice != 3);
 }
@@ -127,27 +129,39 @@ void chatToPerson(int socketID)
 {
     // MessageClient messageClient = setListAllUsers(); 
     User *user = allUsersInSystemClient(socketID, client.id);
-    int count = 0;
+    if(user == NULL)
+    {
+        printf("No users \n");
+        return;
+    }
+    // int count = 0;
     int choice;
     while(1)
     {
         int count = 0;
         while(1)
         {
-            if(user[count].id != -1)break;
-            printf("%d. %s\n", user[count].id, user[count].userName);
+            if(user[count].id == -1){
+                // printf("no users : %s\n", user[count].userName);
+                break;
+            }
+            printf("%d. %d - %s\n", count, user[count].id, user[count].userName);
             count++;
         }
         printf("your choice: ");
         scanf("%d", &choice);
         while(getchar() != '\n');
-        if(choice >= count || choice < 0)continue;
+        if(choice > count || choice < 0)continue;
         else{
             partner.id = user[choice].id;
+            // printf("%d\n", partner.id);
+            // printf("%s\n", user[choice].userName);
             strcpy(partner.name, user[choice].userName);
+            requestSetTwoChatRoom(socketID, client.id, partner.id);
             break;
         }
     }
+
     pthread_t listenThread;
     int threadResult = pthread_create(&listenThread, NULL, listenToServer, (void *)socketID);
     if(threadResult)
@@ -155,28 +169,40 @@ void chatToPerson(int socketID)
         printf("Error code in creating thread - Out task %d\n", threadResult);
         return;
     }
-
+    
     while(1)
     {
-        char *message = (char *)malloc(sizeof(char) * MAX_CLIENT_MESS);
+        char *message = (char *)malloc(sizeof(char) * SIZE_MAX_MESSAGE_CLIENT);
         gets(message);
-        sendMessage(socketID, message);
+        // printf("You: %s\n", message);
+        sendMessageClient(socketID, message, client.id, partner.id);
         //add signal in here
-        if(strlen(message) == 1)
-        {
-            if(atoi(message) == -1)break;
-        }
+        
+        // if(strlen(message) == 1)
+        // {
+        //     if(atoi(message) == -1)
+        //     {
+        //         // pthread_cancel(&listenThread);
+        //         partner.id = -1;
+        //         break;
+        //     }
+        // }
     }
 }
 
 
 void *listenToServer(void *socketID)
 {
-    int connectID = *(int *)socketID;
+    int connectID = (int)socketID;
     while(1)
     {
         char *message = receiveMessage(socketID);
-        if(message != NULL) printf("%s\n", message);
+       
+        if(message != NULL)
+        {
+            MessageServer messageRC = serverJsonToStruct(message);
+            printf("%s : %s\n", partner.name ,messageRC.message);
+        }
         else break;
     }
 }

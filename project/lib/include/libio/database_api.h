@@ -40,6 +40,13 @@ char *getGroupQuery(int groupID);
 int insertGroup(char *groupName, int creatorID);
 
 
+char *getUserByIDQuery(int id);
+
+User getUserByID(int id); //testing
+
+
+
+
 // for adding users to group
 char *addUserToGroupQuery(int userID, int groupID);
 

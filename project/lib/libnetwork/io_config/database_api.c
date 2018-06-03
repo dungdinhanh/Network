@@ -111,6 +111,29 @@ User *getAllUsers()
 }
 
 
+char *getUserByIDQuery(int id)
+{
+	char *query = (char *)malloc(sizeof(char) * MAX_LINE_QUERY);
+	sprintf(query, "SELECT * from users where id = %d", id);
+	return query;
+}
+
+User getUserByID(int id)
+{
+	User user = newUser();
+	char *query = getUserByIDQuery(id);
+	MYSQL_RES *res = getResult(databaseConnect, query);
+ 
+  	MYSQL_ROW *row = mysql_fetch_row(res);
+	if(row)
+	{
+		user.id = atoi(row[0]);
+		strcpy(user.userName, row[1]);
+	}
+	return user;
+}
+
+
 
 //For Group
 char *insertGroupQuery(char *groupName, int creatorID)

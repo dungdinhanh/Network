@@ -2,7 +2,7 @@ CC = gcc
 
 FLAGS = -c -g -Wall
 
-LFLAGS = -lstring -labs -lgraph -lllist -lfdr -lbt -lauth -lmessage -lparse -lclient -lserver -lio -lsocket -lconfig -lent
+LFLAGS = -lmessage -lstring -labs -lgraph -lllist -lfdr -lbt -lauth  -lparse -lclient -lserver -lio -lsocket -lconfig -lent
 #testing LFLAGS because of orders
 SRCS = $(wildcard *.c)
 

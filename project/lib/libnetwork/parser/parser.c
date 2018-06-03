@@ -2,16 +2,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <libconfig/message.h>
 #include "frozen.h"
 #include "parser.h"
 #define MAX_ARRAY 100
 
 MessageClient clientJsonToStruct(char * json) {
-    //MessageClient msg = newMessageClient();
-    MessageClient msg;
-    msg.message = (char *) malloc(100 * sizeof(char));
-    msg.user = (char *) malloc(10 * sizeof(char));
-    msg.password = (char *) malloc(10 * sizeof(char));
+    MessageClient msg = newMessageClient();
+    // MessageClient msg;
+    // msg.message = (char *) malloc(100 * sizeof(char));
+    // msg.user = (char *) malloc(10 * sizeof(char));
+    // msg.password = (char *) malloc(10 * sizeof(char));
 
     json_scanf(json, strlen(json), "{method: %d}", &(msg.method));
     json_scanf(json, strlen(json), "{sender: %d}", &(msg.sender));
@@ -34,9 +35,8 @@ char * clientStructToJson(MessageClient msg) {
 }
 
 MessageServer serverJsonToStruct(char * json) {
-    MessageServer msg;
-    
-    msg.message = (char *) malloc(100 * sizeof(char));
+    MessageServer msg = newMessageServer();
+    // msg.message = (char *) malloc(100 * sizeof(char));
     
     json_scanf(json, strlen(json), "{method: %d}", &(msg.method));
     json_scanf(json, strlen(json), "{sender: %d}", &(msg.sender));
@@ -55,19 +55,27 @@ MessageServer serverJsonToStruct(char * json) {
         i++;
     }
     // printf("Error array: ");
-    printErrorArray(errorArray);
+    //printErrorArray(errorArray);
     free(error);
     free(errorArray);
 
     // parse object array
-    msg.object = malloc(10 * sizeof(Object));
+    //msg.object = malloc(10 * sizeof(Object));
     struct json_token t;
     for (i = 0; json_scanf_array_elem(json, strlen(json), ".object", i, &t) > 0; i++) {
-        msg.object[i].user = (char *) malloc(100 * sizeof(char)); 
-        json_scanf(t.ptr, t.len, "{id: %d, user: %Q}", &msg.object[i].id, &msg.object[i].user);
-        //printf("Id: %d\n", msg.object[i].id);
-        //printf("User: %s\n", msg.object[i].user);
+        // msg.object[i].user = (char *) malloc(100 * sizeof(char)); 
+        // printf("into loops %d\n", i);
+        Object object = initObject();
+        json_scanf(t.ptr, t.len, "{id: %d, user: %Q}", &object.id, &object.user);
+        // printf("%d - %s\n", object.id, object.user);
+        if(object.id == -1)break;
+        addObject(&msg, object);
+        // printf("oke - getout\n");
+        
+        // printf("Id: %d\n", msg.object[i].id);
+        // printf("User: %s\n", msg.object[i].user);
     }
+    // printf("get message\n");
     return msg;
 }
 

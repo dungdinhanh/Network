@@ -71,3 +71,12 @@ MessageClient setListAllUsers(int sender, int groupID)//senderID and groupID can
 	messageClient.sender = sender;
 	return messageClient;
 }
+
+MessageClient setTwoChatRoom(int sender, int receiver)
+{
+	MessageClient messageClient = newMessageClient();
+	messageClient.method = 11;
+	messageClient.sender = sender;
+	messageClient.receiver = receiver;
+	return messageClient;
+}

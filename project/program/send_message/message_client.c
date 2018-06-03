@@ -18,6 +18,13 @@ void sendMessageClient(int socketID, char *message, int sender, int receiver)
     //return 1;
 }
 
+void requestSetTwoChatRoom(int socketID, int sender, int receiver)
+{
+     MessageClient messageClient = setTwoChatRoom(sender, receiver);
+     char *messageJSON = clientStructToJson(messageClient);
+     sendMessage(socketID, messageJSON);
+}
+
 
 User *allUsersInSystemClient(int socketID, int sender)
 {
@@ -25,20 +32,34 @@ User *allUsersInSystemClient(int socketID, int sender)
     char *messageJSON = clientStructToJson(messageClient);
     sendMessage(socketID, messageJSON);
     char *response = receiveMessage(socketID);
-    printf("%s\n", response);
+    // printf("%s\n", response);
     MessageServer messageServer = serverJsonToStruct(response);
+    // printf("after parsing \n");
     if(messageServer.method == 1)return NULL;
     User *user = (User *)malloc(sizeof(User) * MAX_USERS_IN);
     int count = 0;
     while(1)
     {
-        if(messageServer.object[count].id == -1)break;
+        // printf("into loops %d\n", count);
+        
+        user[count] = newUser();
+        // printf("error here 1 \n");
         user[count].id = messageServer.object[count].id;
-        setUserName(user[count], messageServer.object[count].user);
-        printf("user name : %s\n", user[count].userName);
-        strcpy(user[count].password, "");   
+        // printf("error here 2\n");
+        strcpy(user[count].userName, messageServer.object[count].user);
+        // printf("error here 3\n");
+        // printf("user name : %s - %d - %d\n", user[count].userName, user[count].id, count);;
+        strcpy(user[count].password, "");  
+        if(messageServer.object[count].id == -1)break; 
         count++;
     }
+    count = 0;
+    // while(1)
+    // {
+    //     if(user[count].id == -1)break;
+    //     printf("%d. %s\n", user[count].id, user[count].userName);
+    //     count++;
+    // }
     return user;
 }  
 

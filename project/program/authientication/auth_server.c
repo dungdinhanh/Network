@@ -25,7 +25,7 @@ int logInServer(int connID, char *userName, char *password)
         MessageServer messageServer = setFailResponse(FAIL_LOGIN);
         response = serverStructToJson(messageServer);
         sendMessage(connID, response);
-        return 0;
+        return -1;
     }
     else{
         printf("success\n");
@@ -33,7 +33,7 @@ int logInServer(int connID, char *userName, char *password)
         MessageServer messageServer = setSuccessfulResponse(SUCCESS_LOGIN, user.id);
         response = serverStructToJson(messageServer);
         sendMessage (connID, response);
-        return 1;
+        return user.id;
     }
 }
 

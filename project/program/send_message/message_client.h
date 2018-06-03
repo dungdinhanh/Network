@@ -19,4 +19,6 @@ void sendMessageClient(int socketID, char *message, int sender, int receiver);
 User *allUsersInSystemClient(int socketID, int sender);
 
 
+void requestSetTwoChatRoom(int socketID, int sender, int receiver);
+
 #endif
