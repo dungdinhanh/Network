@@ -5,6 +5,7 @@
 #include <libauth/auth_server.h>
 #include <libio/database_api.h>
 #include <libmessage/message_server.h>
+#include <libgroup/group_action.h>
 
 typedef struct SenderReceiverSocket{
     int sender;
@@ -16,6 +17,7 @@ typedef struct SenderReceiverSocket{
 
 
 
+// typedef JRB GroupSource;
 // char *popMessage(MessageQueue messageQueue)
 // {
 //     if(dll_empty(messageQueue))return NULL;
@@ -52,6 +54,26 @@ void *continuousLoadMessage(void *senderReceiverSocket)
     }
 }
 
+void *continuousLoadMessageGroup(void *senderReceiverSocket)
+{
+    SenderReceiverSocket *srsObject = (SenderReceiverSocket *) senderReceiverSocket;
+    int senderID = srsObject->sender;
+    //int receiverID = srsObject->receiver;
+    int groupID = srsObject->groupID;
+    int socketID = srsObject->socketID;
+    char *senderName = (char *)malloc(sizeof(char) * 100);
+    strcpy(senderName, srsObject->senderUserName);
+    while(1)
+    {
+        //printf("inside loops\n");
+        char *message = readMessageFromGroupSource(groupID, senderID);
+        if(message == NULL)continue;
+        printf("%s\n", message);
+        sendMessageBackToClient(socketID, message, senderName ,senderID, -1);
+    }
+}
+
+
 
 
 
@@ -63,6 +85,7 @@ int main()
 {
     startConnection();
     setUpEnvironment();
+    setUpGroupSource();
     int listenID = getListen();
     // int connectID = getAccept(listenID);
     mainServer(listenID);
@@ -125,6 +148,16 @@ void *clientHandle(void *connectID)
             }
         }
 
+        if(messageClient.method == 5)
+        {
+            addUserToGroup(messageClient.sender, messageClient.group);
+        }
+
+        if(messageClient.method == 4)
+        {
+            createGroup(messageClient.message, messageClient.sender, connectionID);
+        }
+
         if(messageClient.method == 2)
         {
             int registerResult = registerServer(connectionID, messageClient.user, messageClient.password);
@@ -133,13 +166,30 @@ void *clientHandle(void *connectID)
 
         if(messageClient.method == 3)
         {
-            addMessageToSource(messageClient.sender, messageClient.receiver, messageClient.message);
+            if(messageClient.group == -1) addMessageToSource(messageClient.sender, 
+            messageClient.receiver, messageClient.message);
+            else
+            {
+                addMessageToGroupSourceAll(messageClient.group, messageClient.sender,
+                clientName, messageClient.message);
+            }
         }
 
         if(messageClient.method == 6)
         {
             sendAllUsers(connectionID, messageClient.sender);
         }
+
+        if(messageClient.method == 8)
+        {
+            sendListGroups(messageClient.sender, connectionID);
+        }
+
+        if(messageClient.method == 9)
+        {
+            sendListGroupsIn(messageClient.sender, connectionID);
+        }
+
 
         if(messageClient.method == 11)
         {
@@ -157,6 +207,24 @@ void *clientHandle(void *connectID)
             {
                 printf("Error: Return Code from pthread_create() is %d\n", lResult);
             }
+        }
+
+        if(messageClient.method == 12)
+        {
+            SenderReceiverSocket *senderReceiverSocket = (SenderReceiverSocket *)
+            malloc(sizeof(SenderReceiverSocket));
+            *senderReceiverSocket = srsInit();
+            senderReceiverSocket->sender = messageClient.sender;
+            senderReceiverSocket->groupID = messageClient.group;
+            senderReceiverSocket->socketID = connectionID;
+            strcpy(senderReceiverSocket->senderUserName, clientName);
+            int lResult = pthread_create(&listenMessageID, NULL, continuousLoadMessageGroup, 
+            senderReceiverSocket);
+            if(lResult)
+            {
+                printf("Error: Return Code from pthread_create() is %d\n", lResult);
+            }
+
         }
     }   
 }

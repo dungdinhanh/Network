@@ -43,6 +43,16 @@ MessageClient setSendMessage(char *message, int senderID, int receiverID)
 	return messageClient;
 }
 
+MessageClient setSendMessageGroup(char *message, int sender, int groupID)
+{
+	MessageClient messageClient = newMessageClient();
+	messageClient.method = SEND_MESSAGE_C;
+	setMessageClient(messageClient, message);
+	messageClient.group = groupID;
+	messageClient.sender = sender;
+	return messageClient;
+}
+
 
 
 MessageClient setCreateGroup(char *groupName, int senderID)
@@ -50,6 +60,7 @@ MessageClient setCreateGroup(char *groupName, int senderID)
 	MessageClient messageClient = newMessageClient();
 	messageClient.method = CREATE_GROUP;
 	messageClient.sender = senderID;
+	strcpy(messageClient.message, groupName);
 	return messageClient;
 }
 
@@ -78,5 +89,30 @@ MessageClient setTwoChatRoom(int sender, int receiver)
 	messageClient.method = 11;
 	messageClient.sender = sender;
 	messageClient.receiver = receiver;
+	return messageClient;
+}
+
+MessageClient setGroupChatRoom(int sender, int groupID)
+{
+	MessageClient messageClient = newMessageClient();
+	messageClient.method = 12;
+	messageClient.sender = sender;
+	messageClient.group = groupID;
+	return messageClient;
+}
+
+MessageClient setListGroups(int sender)
+{
+	MessageClient messageClient = newMessageClient();
+	messageClient.method = LIST_GROUPS;
+	messageClient.sender = sender;
+	return messageClient;
+}
+
+MessageClient setListGroupsIn(int sender)
+{
+	MessageClient messageClient = newMessageClient();
+	messageClient.method = LIST_GROUPS_IN;
+	messageClient.sender = sender;
 	return messageClient;
 }

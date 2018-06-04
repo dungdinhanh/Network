@@ -12,14 +12,14 @@ typedef struct Group
 {
     char *groupName;
     int groupID;
-    User *user;
+    int *user;
     int countUser;
 }Group;
 
 
 Group newGroup();
 
-void addUserIntoGroupObject(Group * group, User user);
+void addUserIntoGroupObject(Group * group, int user);
 
 #endif
 

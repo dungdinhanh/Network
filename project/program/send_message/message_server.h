@@ -18,6 +18,7 @@ typedef JRB Source;
 typedef Dllist MessageQueue;
 typedef Dllist OnlineList;
 
+
 void setUpEnvironment();
 
 void newOnline(int userID);

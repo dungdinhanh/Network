@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <libent/user.h>
+#include <libent/group.h>
 #include "database_api.h"
 #include "database.h"
 #define MAX_LINE_QUERY 1000
@@ -128,7 +129,7 @@ User getUserByID(int id)
 	if(row)
 	{
 		user.id = atoi(row[0]);
-		strcpy(user.userName, row[1]);
+		strcpy(user.userName, (char*)row[1]); //char * test 
 	}
 	return user;
 }
@@ -166,6 +167,47 @@ int insertGroup(char *groupName, int creatorID)
 	} 
 }
 
+char *getAllGroupsQuery()
+{
+	char *query = (char *)malloc(sizeof(char) * MAX_LINE_QUERY);
+	sprintf(query, "SELECT * FROM groups");
+	return query;
+}
+
+Group *getAllGroups()
+{
+	Group * group = (Group *)malloc(sizeof(Group) * MAX_SQL);
+	char *query = getAllGroupsQuery();
+	MYSQL_RES *res;
+	int count = 0;
+	if((res = getResult(databaseConnect, query)) != NULL)
+	{
+		MYSQL_ROW * row;
+		while((row = mysql_fetch_row(res)) != NULL)
+		{
+			group[count] = newGroup();
+			group[count].groupID = atoi((char *)row[0]);
+			strcpy(group[count].groupName, row[1]);
+			//group[count].user = getUsersFromGroup(group[count].groupID);
+			count++;			
+		}
+		group[count] = newGroup();
+		free(row);
+		mysql_free_result(res);
+		count = 0;
+		while(1)
+		{
+			//printf("in loop2\n");
+			if(group[count].groupID == -1)break;
+			group[count].user = getUsersFromGroup(group[count].groupID);
+			count++;
+		}
+	}
+	else mysql_free_result(res);
+	return group;
+}
+
+
 
 // void getGroup(int group_id)
 // {
@@ -198,7 +240,7 @@ int addUserToGroup(int userID, int groupID)
 	else{
 
 		mysql_free_result(res);
-		return 0;
+		return 1;
 	};
 }
 
@@ -212,23 +254,84 @@ char *getUsersFromGroupQuery(int groupID)
 
 int *getUsersFromGroup(int groupID)
 {
-	int * userIDs = (int *)malloc(sizeof(int) * MAX_LINE_QUERY);
+	int *user = (int *) malloc(sizeof(int) * MAX_LINE_QUERY);
+	// int * userIDs = (int *)malloc(sizeof(int) * MAX_LINE_QUERY);
 	char *query = getUsersFromGroupQuery(groupID);
 	MYSQL_RES * res;
 	int count = 0;
-	if (res = getResult(databaseConnect, query) != NULL)
+	if ((res = getResult(databaseConnect, query)) != NULL)
 	{
+		// printf("inside loop4\n");
 		MYSQL_ROW * row;
 		while((row = mysql_fetch_row(res)) != NULL)
 		{
-			userIDs[count] = atoi(row[0]);
+			//printf("inside loop5\n");
+			user[count] = atoi(row[0]);
 			count++;
 		}
+		user[count] = -1;
 		mysql_free_result(res);
-		return userIDs;
+		return user;
 	}
 	else{
 		mysql_free_result(res);
-		return NULL;
+		user[0] = -1;
+		return user;
 	}
 }
+
+
+char *getGroupsForUsersQuery(int user)
+{
+	char *query = (char *)malloc(sizeof(char) * MAX_LINE_QUERY);
+	sprintf(query, "SELECT * FROM user_group WHERE user_id = %d", user);
+	return query;
+}
+
+
+int *getGroupsForUsers(int user)
+{
+	int *group = (int *)malloc(sizeof(char) * 100);
+	MYSQL_RES * res;
+	int count = 0;
+	res = getResult(databaseConnect, getGroupsForUsersQuery(user));
+	MYSQL_ROW row;
+	while((row = mysql_fetch_row(res)))
+	{
+		//printf("\ncount in database api : %d\n", count);
+		group[count] = atoi(row[1]);
+		count++;
+	}
+	group[count] = -1;
+	return group;
+}
+
+
+
+
+// User *getUsersFromGroup(int groupID)
+// {
+// 	User *user = (User *) malloc(sizeof(User) * MAX_LINE_QUERY);
+// 	// int * userIDs = (int *)malloc(sizeof(int) * MAX_LINE_QUERY);
+// 	char *query = getUsersFromGroupQuery(groupID);
+// 	MYSQL_RES * res;
+// 	int count = 0;
+// 	int userIDTemp;
+// 	if (res = getResult(databaseConnect, query) != NULL)
+// 	{
+// 		MYSQL_ROW * row;
+// 		while((row = mysql_fetch_row(res)) != NULL)
+// 		{
+// 			userIDTemp = atoi((char*)row[0]);
+// 			user[count] = getUserByID(userIDTemp);
+// 			count++;
+// 		}
+// 		user[count] = newUser();
+// 		mysql_free_result(res);
+// 		return user;
+// 	}
+// 	else{
+// 		mysql_free_result(res);
+// 		return NULL;
+// 	}
+// }

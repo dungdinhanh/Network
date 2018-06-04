@@ -8,6 +8,7 @@
 #include "database.h"
 #include <mysql.h>
 #include <libent/user.h>
+#include <libent/group.h>
 
 extern MysqlConnector mysqlConnect;
 extern MYSQL *databaseConnect;
@@ -46,6 +47,12 @@ User getUserByID(int id); //testing
 
 
 
+char *getAllGroupsQuery();
+
+Group *getAllGroups();
+
+
+
 
 // for adding users to group
 char *addUserToGroupQuery(int userID, int groupID);
@@ -55,5 +62,10 @@ int addUserToGroup(int userID, int groupID);
 char *getUsersFromGroupQuery(int groupID);
 
 int *getUsersFromGroup(int groupID);
+
+char *getGroupsForUsersQuery(int user);
+
+int *getGroupsForUsers(int user);
+
 
 #endif

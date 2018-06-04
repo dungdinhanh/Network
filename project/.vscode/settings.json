@@ -13,7 +13,9 @@
         "user.h": "c",
         "message_client.h": "c",
         "message_server.h": "c",
-        "database_api.h": "c"
+        "database_api.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled",
     "C_Cpp.errorSquiggles": "Disabled"

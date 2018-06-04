@@ -13,6 +13,9 @@
 #define ADD_PERSON_GROUP 5
 #define LIST_USERS 6
 #define SEND_FILE 7
+#define LIST_GROUPS 8
+#define LIST_GROUPS_IN 9
+#define TWO_CHAT 11
 
 
 MessageClient setLogIn(char *userName, char *password);
@@ -23,6 +26,8 @@ MessageClient setRegister(char *userName, char *password);
 
 MessageClient setSendMessage(char *message, int senderID, int receiverID);
 
+MessageClient setSendMessageGroup(char *message, int sender, int groupID);
+
 
 MessageClient setCreateGroup(char *groupName, int senderID);
 
@@ -31,6 +36,14 @@ MessageClient setAddPersonToGroup(int senderID, int groupID);
 MessageClient setListAllUsers(int senderID, int groupID);//senderID and groupID can be -1 if there is no data for this field
 
 MessageClient setTwoChatRoom(int sender, int receiver);
+
+
+MessageClient setGroupChatRoom(int sender, int groupID);
+
+MessageClient setListGroups(int sender);
+
+MessageClient setListGroupsIn(int sender);
+
 
 
 #endif
