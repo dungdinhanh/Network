@@ -1,1 +1,6 @@
 \beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Application Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Design}{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{Protocol Design}{8}{0}{2}
+\beamer@subsectionintoc {2}{2}{Modules}{11}{0}{2}
+\beamer@sectionintoc {3}{Implementation Details}{17}{0}{3}

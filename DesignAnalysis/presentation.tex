@@ -3,8 +3,8 @@
 \usepackage{grffile}
 \usetheme[progressbar=frametitle]{metropolis}
 \setbeamertemplate{frame numbering}[fraction]
-\useoutertheme{metropolis}
-\useinnertheme{metropolis}
+%\useoutertheme{metropolis}
+%\useinnertheme{metropolis}
 \usefonttheme{metropolis}
 \usecolortheme{spruce}
 \setbeamercolor{background canvas}{bg=white}
@@ -24,6 +24,10 @@
 \titlepage
 \end{frame}
 
+\begin{frame}{Content}
+	\tableofcontents
+\end{frame}
+\section{Application Introduction}
 \begin{frame}{Application Introduction}
 Our Application is about chatting program:
 
@@ -53,7 +57,7 @@ Our Application is about chatting program:
 \end{frame}
 
 
-
+\section{Design}
 \begin{frame}{Design}
 \begin{enumerate}
 \item \textbf{Message Format}
@@ -63,7 +67,7 @@ Our Application is about chatting program:
 \end{frame}
 
 
-
+\subsection{Protocol Design}
 \begin{frame}{Message Format}
 \begin{enumerate}
 \item Using JSON Format
@@ -96,7 +100,7 @@ Our Application is about chatting program:
 
 \end{frame}
 
-
+\subsection{Modules}
 \begin{frame}{Modules}
 \begin{enumerate}
 \item \textbf{Library}
@@ -110,30 +114,93 @@ Our Application is about chatting program:
 \begin{frame}{Module Design}
 \begin{figure}
 \includegraphics[scale=0.2]{usecase.png}
+\caption{Module Design - Use Case diagram}
 \end{figure}
 \end{frame}
 
 \begin{frame}{Log In}
 \begin{figure}
-\includegraphics[scale=0.2]{Login.png}
+	\begin{center}
+		\includegraphics[scale=0.2]{Login.png}
+		\caption{Log In - Activity diagram}
+	\end{center}
 \end{figure}
 \end{frame}
 
 \begin{frame}{Register}
 \begin{figure}
-\includegraphics[scale=0.2]{Register.png}
+	\begin{center}
+		\includegraphics[scale=0.2]{Register.png}
+		\caption{Register - Activity diagram}
+	\end{center}
 \end{figure}
 \end{frame}
 
 \begin{frame}{Send Messages To A Group}
 \begin{figure}
-\includegraphics[scale=0.3]{SendMessageToGroup.png}
+	\begin{center}
+		\includegraphics[scale=0.3]{SendMessageToGroup.png}
+		\caption{Send message to group - Activity}
+	\end{center}
+
 \end{figure}
 \end{frame}
 
 \begin{frame}{Send Message To A Person}
-\includegraphics[scale=0.3]{SendMessageToOther.png}
+\begin{center}
+	\begin{figure}
+		\includegraphics[scale=0.3]{SendMessageToOther.png}
+		\caption{Send Message to an user}
+	\end{figure}
+\end{center}
 \end{frame}
+ 
+\section{Implementation Details}
+\begin{frame}{Data Structure}
+
+\begin{itemize}
+	\item Online Tree Represenation
+	\begin{itemize}
+		\item The online tree is a binary search tree
+		\item Each online user will have a node on the tree
+	\end{itemize}
+\end{itemize}
+
+\begin{center}
+	\begin{figure}
+		\includegraphics[scale=0.4]{OnlineTree.png}
+		\caption{Online Tree Representation}
+	\end{figure}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{ Data Structure}
+	\begin{itemize}
+		\item Online node representation
+	\end{itemize}
+	
+	\begin{figure}
+		\includegraphics[scale=0.4]{OnlineNode.png}
+		\caption{Online Node representation}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Data Structure}
+	\begin{itemize}
+		\item Between 2 online nodes
+		\begin{itemize}
+			\item The message queue representative for the messages sending from node $1$ to node $2$.
+		\end{itemize}
+	\end{itemize}
+	
+	\begin{figure}
+		\includegraphics[scale=0.4]{messageQueue.png}
+		\caption{Message Queue between 2 online nodes}
+	\end{figure}
+\end{frame}
+
+
 
 
 \end{document}
