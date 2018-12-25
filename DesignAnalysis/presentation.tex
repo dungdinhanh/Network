@@ -156,7 +156,8 @@ Our Application is about chatting program:
 \end{frame}
  
 \section{Implementation Details}
-\begin{frame}{Data Structure}
+\subsection{Data Structure}
+\begin{frame}{Data Structure - Individual Chat}
 
 \begin{itemize}
 	\item Online Tree Represenation
@@ -175,7 +176,7 @@ Our Application is about chatting program:
 \end{frame}
 
 
-\begin{frame}{ Data Structure}
+\begin{frame}{Data Structure - Individual Chat}
 	\begin{itemize}
 		\item Online node representation
 	\end{itemize}
@@ -186,7 +187,7 @@ Our Application is about chatting program:
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Data Structure}
+\begin{frame}{Data Structure - Individual Chat}
 	\begin{itemize}
 		\item Between 2 online nodes
 		\begin{itemize}
@@ -199,6 +200,59 @@ Our Application is about chatting program:
 		\caption{Message Queue between 2 online nodes}
 	\end{figure}
 \end{frame}
+
+\begin{frame}{Data Structure - Group Chat}
+\begin{itemize}
+	\item Group Tree Representation
+	\begin{itemize}
+		\item Every group has 1 node on tree.
+	\end{itemize}
+\end{itemize}
+
+\begin{figure}
+	\includegraphics[scale=0.4]{OnlineTree.png}
+	\caption{Group Representative Tree}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Data Structure - Group Chat}
+\begin{itemize}
+	\item Between 2 a group node and an user node
+	\begin{itemize}
+		\item The message queue representative for the messages sending from a person to a group
+	\end{itemize}
+\end{itemize}
+
+\begin{figure}
+	\includegraphics[scale=0.4]{GroupQueue.png}
+	\caption{Message Queue for an user}
+\end{figure}
+\end{frame}
+
+
+\subsection{Thread}
+	\begin{frame}{Server}
+		\begin{itemize}
+			\item main thread for connection request
+			\item 2 threads for each client
+			\begin{itemize}
+				\item 1 thread for listening message from client
+				\item 1 thread for interacting with logic in server
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+\begin{frame}{Client}
+\begin{itemize}
+	\item Client will hold 2 threads
+	\begin{itemize}
+		\item 1 thread for receiving message from server
+		\item 1 thread for taking order from client and sending message.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
 
 
 

@@ -24,10 +24,14 @@ int logInClient(int socketID)
     sendMessage(socketID, message);
     char *response = (char *)malloc(sizeof(char) * MAX_LOGIN);
     response = receiveMessage(socketID);
-    printf("%s\n", response);
+    //printf("%s\n", response);
     MessageServer messageServer = serverJsonToStruct(response);
     if(messageServer.method == 1)return -1;
-    else return messageServer.sender;    
+    else
+    {
+        printf("Successful Login\n");
+        return messageServer.sender;
+    }     
 }
 
 

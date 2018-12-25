@@ -83,7 +83,7 @@ char * serverStructToJson(MessageServer msg) {
     char * str;
     str = (char *) malloc(200 * sizeof(char));
     sprintf(str, "{ \"method\": %d, \"sender\": %d, \"group\": %d, \"message\": \"%s\", error: %s, object: %s }", msg.method, msg.sender, msg.group, msg.message, parserArrayToString(msg.error), parseObjectArrayToString(msg.object));
-    printf("Reverse: %s\n", str);
+   // printf("Reverse: %s\n", str);
     return str;
 }
 
